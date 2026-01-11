@@ -1,87 +1,248 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="auto">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Navigation Hub</title>
+  <meta name="description" content="My Personal Navigation Hub - Quick access to favorite tools and sites"/>
+  <title>My Navigation Hub | 我的导航页</title>
+  
+  <!-- Favicon (建议自己替换) -->
+  <link rel="icon" href="https://favicon.io/favicon.ico" type="image/x-icon"/>
+  
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      max-width: 680px;
-      margin: 40px auto;
-      padding: 0 20px;
-      line-height: 1.6;
-      color: #222;
-      background: #fff;
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --card-bg: #f8f9fa;
+      --card-hover: #e9ecef;
+      --accent: #0066cc;
+      --accent-hover: #0052a3;
+      --border: #e0e0e0;
+      --shadow: 0 4px 15px rgba(0,0,0,0.08);
     }
+
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text: #e0e0e0;
+      --card-bg: #1e1e1e;
+      --card-hover: #2a2a2a;
+      --accent: #4da6ff;
+      --accent-hover: #3399ff;
+      --border: #333;
+      --shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
     h1 {
       text-align: center;
-      font-size: 2.2em;
-      margin-bottom: 1.8em;
-      color: #1a1a1a;
+      font-size: 2.8rem;
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.5px;
     }
-    a {
-      color: #0066cc;
-      text-decoration: none;
-      display: block;
-      margin: 0.85em 0;
-      font-size: 1.1em;
-    }
-    a:hover {
-      text-decoration: underline;
-      color: #003366;
-    }
-    .footer {
-      margin-top: 4em;
+
+    .subtitle {
       text-align: center;
-      font-size: 0.9em;
-      color: #666;
+      color: var(--text);
+      opacity: 0.7;
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
     }
-    hr {
-      border: none;
-      border-top: 1px solid #eee;
-      margin: 3em 0 1.5em;
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+      background: var(--card-hover);
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-desc {
+      font-size: 0.95rem;
+      opacity: 0.75;
+      line-height: 1.4;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 4rem;
+      font-size: 0.95rem;
+      opacity: 0.7;
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: var(--shadow);
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.2rem; }
+      .links-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <h1>My Navigation Hub</h1>
+  <!-- 主题切换按钮 -->
+  <div class="theme-toggle" title="Toggle Theme" onclick="toggleTheme()">☀️/🌙</div>
 
-  <a href="https://www.google.com" target="_blank">Google</a>
-  <a href="https://www.baidu.com" target="_blank">Baidu</a>
-  <a href="https://www.youtube.com" target="_blank">YouTube</a>
-  <a href="https://mail.google.com" target="_blank">Gmail</a>
-  <a href="https://github.com" target="_blank">GitHub</a>
+  <div class="container">
+    <h1>My Navigation Hub</h1>
+    <p class="subtitle">快速访问常用工具 · Quick Access to Favorite Tools</p>
 
-  <a href="https://ip.sb" target="_blank">IP Lookup</a>
-  <a href="https://dash.cloudflare.com" target="_blank">Cloudflare</a>
+    <div class="links-grid">
+      <!-- 搜索引擎 -->
+      <a href="https://www.google.com" target="_blank" class="card">
+        <div class="card-title">Google</div>
+        <div class="card-desc">全球最强大的搜索引擎</div>
+      </a>
 
-  <a href="https://chatgpt.com" target="_blank">ChatGPT</a>
-  <a href="https://huggingface.co" target="_blank">Hugging Face</a>
+      <a href="https://www.baidu.com" target="_blank" class="card">
+        <div class="card-title">百度</div>
+        <div class="card-desc">中文互联网入口</div>
+      </a>
 
-  <a href="https://www.itdog.cn" target="_blank">Ping & Speed Test</a>
-  <a href="https://ping0.cc" target="_blank">Ping0</a>
+      <!-- 视频 & 邮箱 -->
+      <a href="https://www.youtube.com" target="_blank" class="card">
+        <div class="card-title">YouTube</div>
+        <div class="card-desc">全球视频分享平台</div>
+      </a>
 
-  <a href="https://who.cx" target="_blank">Whois Lookup</a>
-  <a href="https://www.domcomp.com" target="_blank">Domain Compare</a>
+      <a href="https://mail.google.com" target="_blank" class="card">
+        <div class="card-title">Gmail</div>
+        <div class="card-desc">Google 邮箱</div>
+      </a>
 
-  <a href="https://www.nodeseek.com" target="_blank">NodeSeek</a>
-  <a href="https://linux.do" target="_blank">Linux.do</a>
+      <!-- 开发 & AI -->
+      <a href="https://github.com" target="_blank" class="card">
+        <div class="card-title">GitHub</div>
+        <div class="card-desc">代码托管与协作平台</div>
+      </a>
 
-  <a href="https://music.gvrander.eu.org" target="_blank">Online Music</a>
-  <a href="https://www.freereceivesms.com" target="_blank">Free SMS Receive</a>
+      <a href="https://chatgpt.com" target="_blank" class="card">
+        <div class="card-title">ChatGPT</div>
+        <div class="card-desc">OpenAI 智能对话</div>
+      </a>
 
-  <a href="https://sublink.eooce.com" target="_blank">Subscription Converter</a>
-  <a href="https://ssh.eooce.com" target="_blank">WebSSH</a>
-  <a href="https://filebox.nnuu.nyc.mn" target="_blank">File Transfer</a>
-  <a href="https://address.nnuu.nyc.mn" target="_blank">Fake Address Generator</a>
+      <a href="https://huggingface.co" target="_blank" class="card">
+        <div class="card-title">Hugging Face</div>
+        <div class="card-desc">AI 模型社区</div>
+      </a>
 
-  <hr>
+      <!-- 网络工具 -->
+      <a href="https://ip.sb" target="_blank" class="card">
+        <div class="card-title">IP Lookup</div>
+        <div class="card-desc">IP 地址查询</div>
+      </a>
 
-  <div class="footer">
-    Powered by <a href="https://github.com/eooce" target="_blank">eooce</a>
+      <a href="https://www.itdog.cn" target="_blank" class="card">
+        <div class="card-title">ITDOG</div>
+        <div class="card-desc">Ping / Tcping / 测速</div>
+      </a>
+
+      <!-- 其他实用工具 -->
+      <a href="https://www.freereceivesms.com" target="_blank" class="card">
+        <div class="card-title">Free SMS</div>
+        <div class="card-desc">免费短信接收验证码</div>
+      </a>
+
+      <a href="https://sublink.eooce.com" target="_blank" class="card">
+        <div class="card-title">Sub Converter</div>
+        <div class="card-desc">订阅链接转换工具</div>
+      </a>
+    </div>
+
+    <div class="footer">
+      Powered by <a href="https://github.com/eooce" target="_blank">eooce</a> • 
+      <span id="year"></span> • 
+      <a href="javascript:toggleLang()">English / 中文</a>
+    </div>
   </div>
 
+  <script>
+    // 自动年份
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 主题切换
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+
+    // 跟随系统偏好 + 本地存储
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+
+    // 简单语言切换（可扩展）
+    function toggleLang() {
+      alert('多语言完整支持开发中...\nFull multi-language support coming soon!');
+    }
+  </script>
 </body>
 </html>
